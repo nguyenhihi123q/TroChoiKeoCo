@@ -1,0 +1,34 @@
+# Dependencies
+node_modules
+.pnp
+.pnp.js
+
+# Build output
+dist
+dist-ssr
+*.local
+*.tsbuildinfo
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Editor / OS
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+Thumbs.db
+
+# Vercel
+.vercel
+
+# Test coverage
+coverage
+
+# Ảnh chụp màn hình tham khảo (không thuộc mã nguồn ứng dụng)
+giaodientrochoikeoco/
