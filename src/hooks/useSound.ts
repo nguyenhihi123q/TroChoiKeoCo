@@ -94,6 +94,46 @@ export function useSound(opts: SoundOptions): SoundControls {
       });
     };
 
+    // Âm reo dự phòng tạo trực tiếp bằng Web Audio, không phụ thuộc giọng đọc hệ thống.
+    const yell = () => {
+      const ctx = ensureCtx();
+      const master = masterRef.current;
+      if (!ctx || !master) return;
+      if (ctx.state === 'suspended') ctx.resume().catch(() => undefined);
+
+      const t = ctx.currentTime;
+      const voice = ctx.createOscillator();
+      const lowFormant = ctx.createBiquadFilter();
+      const highFormant = ctx.createBiquadFilter();
+      const lowGain = ctx.createGain();
+      const highGain = ctx.createGain();
+      voice.type = 'sawtooth';
+      voice.frequency.setValueAtTime(330, t);
+      voice.frequency.exponentialRampToValueAtTime(740, t + 0.32);
+      voice.frequency.setValueAtTime(700, t + 0.68);
+
+      lowFormant.type = 'bandpass';
+      lowFormant.frequency.setValueAtTime(480, t);
+      lowFormant.frequency.exponentialRampToValueAtTime(300, t + 0.3);
+      lowFormant.Q.value = 1.2;
+      highFormant.type = 'bandpass';
+      highFormant.frequency.setValueAtTime(1900, t);
+      highFormant.frequency.exponentialRampToValueAtTime(2500, t + 0.3);
+      highFormant.Q.value = 1.1;
+
+      for (const gain of [lowGain, highGain]) {
+        gain.gain.setValueAtTime(0.0001, t);
+        gain.gain.exponentialRampToValueAtTime(gain === lowGain ? 0.16 : 0.09, t + 0.06);
+        gain.gain.setValueAtTime(gain === lowGain ? 0.16 : 0.09, t + 0.68);
+        gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.95);
+      }
+
+      voice.connect(lowFormant).connect(lowGain).connect(master);
+      voice.connect(highFormant).connect(highGain).connect(master);
+      voice.start(t);
+      voice.stop(t + 0.98);
+    };
+
     return {
       unlock() {
         const ctx = ensureCtx();
@@ -109,18 +149,21 @@ export function useSound(opts: SoundOptions): SoundControls {
         if (now - lastCheerAtRef.current < 650) return;
         lastCheerAtRef.current = now;
 
-        if (typeof window !== 'undefined' && 'speechSynthesis' in window && typeof SpeechSynthesisUtterance !== 'undefined') {
+        const canSpeak =
+          typeof window !== 'undefined' &&
+          'speechSynthesis' in window &&
+          typeof SpeechSynthesisUtterance !== 'undefined' &&
+          window.speechSynthesis.getVoices().length > 0;
+        if (canSpeak) {
           const shout = new SpeechSynthesisUtterance('Yee!');
           shout.lang = 'en-US';
           shout.rate = 0.82;
           shout.pitch = 1.55;
           shout.volume = optsRef.current.volume;
           window.speechSynthesis.speak(shout);
-          return;
+        } else {
+          yell();
         }
-
-        // Dự phòng cho trình duyệt không có giọng đọc: tiếng reo cao dần.
-        tone([392, 523.25, 659.25, 783.99], 0.065, 0.2, 'triangle', 0.2);
       },
       playWrong() {
         tone([196, 155.56], 0.1, 0.2, 'sawtooth', 0.2); // hai nốt trầm đi xuống

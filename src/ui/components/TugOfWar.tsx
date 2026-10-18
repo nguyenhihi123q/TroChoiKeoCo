@@ -70,8 +70,9 @@ function Puller({ x, face, scarf, shorts, skin, hair, delay }: PullerProps) {
 
 export function TugOfWar({ fraction, blueName, redName }: Props) {
   const shift = Math.max(-1, Math.min(1, fraction)) * 60; // px dịch nút thắt
-  const blueDragged = Math.max(0, shift * 0.48);
-  const redDragged = Math.min(0, shift * 0.48);
+  // Đội thua trượt xa hơn nút thắt để lực kéo nhìn thấy rõ ở mỗi điểm.
+  const blueDragged = Math.max(0, shift * 2);
+  const redDragged = Math.min(0, shift * 2);
   const leadingTeam = fraction < 0 ? blueName : fraction > 0 ? redName : null;
   const skins = SKINS;
   const hairs = HAIRS;
