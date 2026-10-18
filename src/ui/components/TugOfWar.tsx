@@ -70,10 +70,16 @@ function Puller({ x, face, scarf, shorts, skin, hair, delay }: PullerProps) {
 
 export function TugOfWar({ fraction, blueName, redName }: Props) {
   const shift = Math.max(-1, Math.min(1, fraction)) * 60; // px dịch nút thắt
+  const blueDragged = Math.max(0, shift * 0.48);
+  const redDragged = Math.min(0, shift * 0.48);
+  const leadingTeam = fraction < 0 ? blueName : fraction > 0 ? redName : null;
   const skins = SKINS;
   const hairs = HAIRS;
   return (
     <div className="tug">
+      <div className={`tug-status ${fraction < 0 ? 'blue' : fraction > 0 ? 'red' : ''}`} aria-live="polite">
+        {leadingTeam ? `💪 ${leadingTeam} đang kéo!` : '🤝 Đang giằng co'}
+      </div>
       <svg
         viewBox="0 0 400 150"
         role="img"
@@ -95,15 +101,19 @@ export function TugOfWar({ fraction, blueName, redName }: Props) {
           </g>
         </g>
 
-        {/* Đội Xanh (trái) — kéo về trái, khăn quàng xanh */}
-        <Puller x={34} face={1} scarf="#2563eb" shorts="#1e3a8a" skin={skins[0]} hair={hairs[0]} delay={0} />
-        <Puller x={66} face={1} scarf="#3b82f6" shorts="#1e40af" skin={skins[1]} hair={hairs[1]} delay={0.1} />
-        <Puller x={98} face={1} scarf="#2563eb" shorts="#1d4ed8" skin={skins[2]} hair={hairs[2]} delay={0.2} />
+        {/* Khi đội Đỏ dẫn, đội Xanh bị kéo sang phải theo dây. */}
+        <g className="pulling-team" style={{ transform: `translate(${blueDragged}px, 0)` }}>
+          <Puller x={34} face={1} scarf="#2563eb" shorts="#1e3a8a" skin={skins[0]} hair={hairs[0]} delay={0} />
+          <Puller x={66} face={1} scarf="#3b82f6" shorts="#1e40af" skin={skins[1]} hair={hairs[1]} delay={0.1} />
+          <Puller x={98} face={1} scarf="#2563eb" shorts="#1d4ed8" skin={skins[2]} hair={hairs[2]} delay={0.2} />
+        </g>
 
-        {/* Đội Đỏ (phải) — kéo về phải, khăn quàng đỏ (lệch pha để trông như giằng co) */}
-        <Puller x={366} face={-1} scarf="#dc2626" shorts="#7f1d1d" skin={skins[0]} hair={hairs[1]} delay={0.42} />
-        <Puller x={334} face={-1} scarf="#ef4444" shorts="#991b1b" skin={skins[1]} hair={hairs[2]} delay={0.52} />
-        <Puller x={302} face={-1} scarf="#dc2626" shorts="#b91c1c" skin={skins[2]} hair={hairs[0]} delay={0.32} />
+        {/* Khi đội Xanh dẫn, đội Đỏ bị kéo sang trái theo dây. */}
+        <g className="pulling-team" style={{ transform: `translate(${redDragged}px, 0)` }}>
+          <Puller x={366} face={-1} scarf="#dc2626" shorts="#7f1d1d" skin={skins[0]} hair={hairs[1]} delay={0.42} />
+          <Puller x={334} face={-1} scarf="#ef4444" shorts="#991b1b" skin={skins[1]} hair={hairs[2]} delay={0.52} />
+          <Puller x={302} face={-1} scarf="#dc2626" shorts="#b91c1c" skin={skins[2]} hair={hairs[0]} delay={0.32} />
+        </g>
       </svg>
     </div>
   );

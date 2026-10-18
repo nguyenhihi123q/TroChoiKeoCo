@@ -651,6 +651,30 @@ label {
   max-width: 420px;
 }
 
+.tug-status {
+  width: fit-content;
+  max-width: 100%;
+  margin: 0 auto 0.25rem;
+  padding: 0.3rem 0.8rem;
+  border-radius: 999px;
+  background: rgba(148, 163, 184, 0.2);
+  color: #e2e8f0;
+  font-size: 0.9rem;
+  font-weight: 800;
+  text-align: center;
+  transition: color 0.25s ease, background-color 0.25s ease;
+}
+
+.tug-status.blue {
+  color: #dbeafe;
+  background: rgba(37, 99, 235, 0.28);
+}
+
+.tug-status.red {
+  color: #fee2e2;
+  background: rgba(220, 38, 38, 0.28);
+}
+
 .tug svg {
   width: 100%;
   height: auto;
@@ -677,6 +701,10 @@ label {
   transform-origin: 50% 100%;
   animation: tug-heave 0.85s ease-in-out infinite;
   will-change: transform;
+}
+
+.tug svg .pulling-team {
+  transition: transform 0.35s ease;
 }
 
 /* Nút thắt/cờ ở giữa nhấp nhô nhẹ cho sinh động. */

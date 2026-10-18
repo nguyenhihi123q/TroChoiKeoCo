@@ -5,6 +5,7 @@ import { useEffect, useMemo, useRef } from 'react';
 export interface SoundControls {
   unlock(): void; // gọi trong một cử chỉ người dùng để mở khóa audio
   playCorrect(): void;
+  playCheer(): void;
   playWrong(): void;
   playFinish(): void;
   startMusic(): void;
@@ -23,6 +24,7 @@ export function useSound(opts: SoundOptions): SoundControls {
   const ctxRef = useRef<AudioCtx | null>(null);
   const masterRef = useRef<GainNode | null>(null);
   const musicRef = useRef<{ stop(): void } | null>(null);
+  const lastCheerAtRef = useRef(0);
   const optsRef = useRef(opts);
   optsRef.current = opts;
 
@@ -99,6 +101,26 @@ export function useSound(opts: SoundOptions): SoundControls {
       },
       playCorrect() {
         tone([523.25, 783.99], 0.09, 0.16, 'sine', 0.28); // Đô → Sol đi lên
+      },
+      playCheer() {
+        if (!optsRef.current.soundEnabled) return;
+        const now = Date.now();
+        // Tránh hai tiếng reo chồng lên nhau khi cả hai đội cùng ghi điểm.
+        if (now - lastCheerAtRef.current < 650) return;
+        lastCheerAtRef.current = now;
+
+        if (typeof window !== 'undefined' && 'speechSynthesis' in window && typeof SpeechSynthesisUtterance !== 'undefined') {
+          const shout = new SpeechSynthesisUtterance('Yee!');
+          shout.lang = 'en-US';
+          shout.rate = 0.82;
+          shout.pitch = 1.55;
+          shout.volume = optsRef.current.volume;
+          window.speechSynthesis.speak(shout);
+          return;
+        }
+
+        // Dự phòng cho trình duyệt không có giọng đọc: tiếng reo cao dần.
+        tone([392, 523.25, 659.25, 783.99], 0.065, 0.2, 'triangle', 0.2);
       },
       playWrong() {
         tone([196, 155.56], 0.1, 0.2, 'sawtooth', 0.2); // hai nốt trầm đi xuống

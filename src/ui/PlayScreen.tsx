@@ -66,8 +66,10 @@ function PlayInner({ gameId }: { gameId: string }) {
     for (const side of ['blue', 'red'] as const) {
       const fb = state.teams[side].feedback;
       if (fb !== prevFb.current[side]) {
-        if (fb === 'correct') sound.playCorrect();
-        else if (fb === 'wrong') sound.playWrong();
+        if (fb === 'correct') {
+          sound.playCorrect();
+          sound.playCheer();
+        } else if (fb === 'wrong') sound.playWrong();
         prevFb.current[side] = fb;
       }
     }
