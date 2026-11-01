@@ -151,6 +151,7 @@ function PlayInner({ gameId }: { gameId: string }) {
 
   return (
     <div className="play-root">
+      <header className="match-brand">Kéo co kiến thức</header>
       <div className="play-topbar">
         <span className="play-mode">Chế độ: {modeName(state.mode)}</span>
         <span className={`play-clock ${low ? 'low' : ''}`}>

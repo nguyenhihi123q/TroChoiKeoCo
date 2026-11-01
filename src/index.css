@@ -1054,3 +1054,77 @@ label {
 }
 
 /* __APPEND_CSS__ */
+
+/* Game identity */
+.brand h1 { font-size: clamp(26px, 3.5vw, 42px); line-height: 1.2; font-weight: 850; color: var(--brand-dark); }
+.brand small { display: block; margin-top: 6px; line-height: 1.5; }
+.rules-box h1 { font-size: clamp(32px, 4.5vw, 52px); line-height: 1.2; margin: 0 0 12px; font-weight: 850; }
+.match-subtitle { color: #ddd6fe; text-align: center; font-size: clamp(16px, 2vw, 21px); line-height: 1.5; margin: 0 0 24px; }
+.match-brand { text-align: center; padding: 12px 16px; color: var(--gold); font-size: clamp(24px, 3vw, 38px); font-weight: 850; line-height: 1.25; background: #1c103b; }
+
+/* Light mint visual system: presentation only. */
+:root { --bg: #f5f9f8; --ink: #203831; --muted: #60756e; --line: #dfeae5; --brand: #168574; --brand-dark: #116b5d; --gold: #a76b09; --radius: 20px; --shadow: 0 8px 28px #204e3d08; }
+body { background: radial-gradient(ellipse at 95% 0%, #e0f3ec 0, transparent 50%), #f5f9f8; -webkit-font-smoothing: antialiased; }
+.shell { padding-top: 32px; }
+.appbar { position: relative; isolation: isolate; overflow: hidden; flex-wrap: wrap; padding: 32px; background: linear-gradient(110deg, #fff 10%, #eaf7f1); border: 1px solid #d4e9de; border-radius: 24px; margin-bottom: 24px; box-shadow: 0 8px 32px #204e3d06; }
+.appbar::after { content: ''; position: absolute; z-index: -1; width: 230px; height: 230px; right: -95px; top: -110px; border: 38px solid #cbe9da55; border-radius: 50%; pointer-events: none; }
+.brand { gap: 16px; min-width: 0; }
+.brand-logo { width: 58px; height: 58px; padding: 8px; border-radius: 18px; background: #def2e9; border: 1px solid #cee7dc; }
+.brand h1 { font-size: clamp(30px, 3.7vw, 46px); letter-spacing: -1.3px; color: #166552; font-weight: 800; }
+.brand small { max-width: 480px; color: #5b786b; font-weight: 400; font-size: 14px; line-height: 1.7; margin-top: 10px; }
+.toolbar { padding: 14px; gap: 14px; border: 1px solid var(--line); border-radius: 16px; background: #fff; margin-bottom: 24px; }
+.btn { min-height: 44px; padding: 10px 16px; border-radius: 12px; justify-content: center; box-shadow: 0 2px 3px #20383104; }
+.btn-primary { background: #168574; box-shadow: 0 4px 10px #16857420; }
+.btn-primary:hover:not(:disabled) { box-shadow: 0 5px 16px #16857430; }
+.btn-ghost { box-shadow: none; }
+.cards { gap: 20px; }
+.card { border-top: 3px solid #99cdb7; padding: 26px; gap: 12px; }
+.card h3 { font-size: 20px; line-height: 1.45; letter-spacing: -.3px; }
+.card .meta { line-height: 1.8; }
+.card .card-actions { padding-top: 18px; gap: 8px; }
+.badge { background: #e4f3ec; color: #27664f; padding: 4px 10px; }
+.panel { padding: 24px; } .panel h2 { margin-bottom: 20px; }
+input[type='text'], input[type='number'], input[type='search'], select, textarea { min-height: 44px; padding: 10px 12px; background: #fcfefd; border-color: #d8e5df; border-radius: 12px; }
+.mode-option { padding: 14px; border-radius: 14px; }
+.mode-option.active { background: #edf8f2; border-color: #7fbaa3; }
+.modal { border-radius: 22px; box-shadow: 0 24px 100px #20383125; }
+.play-root { background: radial-gradient(ellipse at 50% 0%, #e3f1eb, transparent 60%), #f6faf8; color: #203831; }
+.match-brand { background: #ffffffdb; border-bottom: 1px solid #dce9e2; color: #166552; padding: 16px; letter-spacing: -.6px; }
+.play-topbar { background: #ffffffc9; border-bottom-color: #dce9e2; flex-wrap: wrap; }
+.play-mode { color: #526b61; } .play-clock { color: #203831; } .play-clock.low { color: #b91c1c; }
+.team-col.blue { background: linear-gradient(180deg, #e9f1ff, #f6f9ff); }
+.team-col.red { background: linear-gradient(180deg, #fff0ee, #fff9f7); }
+.center-col { background: #f2f8f4; }
+.blue .team-name, .blue .team-score { color: #2456a1; }
+.red .team-name, .red .team-score { color: #b04242; }
+.question-box { background: #fff; border: 1px solid #dfe7e3; box-shadow: 0 5px 20px #204e3d06; border-radius: 16px; }
+.prematch { background: radial-gradient(ellipse at 50% 0%, #e0f0e7, transparent 65%), #f5f9f6; padding: 32px 20px; }
+.rules-box { background: #fff; color: #344e42; border: 1px solid #d5e6dc; box-shadow: 0 20px 70px #204e3d0c; border-radius: 26px; padding: 32px; }
+.rules-box h1 { color: #166552; letter-spacing: -1px; }
+.match-subtitle { color: #60756e; }
+.rules-teams { background: #f6f9f8; border: 1px solid #e2eae6; border-radius: 14px; padding: 14px; }
+.rules-teams span:first-child { color: #2456a1 !important; }
+.rules-teams span:last-child { color: #b04242 !important; }
+.rules-list { gap: 14px; line-height: 1.65; }
+.rules-list .ico { color: #168574; }
+@media (max-width: 640px) { .shell { padding: 16px 16px 32px; } .appbar { padding: 24px 20px; } .brand-logo { width: 46px; height: 46px; } .brand { gap: 12px; } .brand h1 { letter-spacing: -.7px; } .cards { grid-template-columns: minmax(0, 1fr); } .card, .panel, .rules-box { padding: 20px; } .rules-teams { flex-wrap: wrap; } }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; } }
+
+/* Legible match indicators on light surfaces. */
+.tug-status { color: #526b61; background: #e1ece5; }
+.tug-status.blue { color: #2456a1; background: #dce9ff; }
+.tug-status.red { color: #a13b3b; background: #fce1dd; }
+.threshold-note, .status-idle { color: #60756e; }
+.sd-timer { color: #9a6708; }
+.sd-banner { background: #fff1c4; color: #714508; }
+.answer { border-color: #e1e8e4; box-shadow: 0 3px 10px #204e3d05; }
+
+.countdown-overlay { background: #f1f8f3ed; backdrop-filter: blur(8px); }
+.countdown-num { color: #168574; text-shadow: 0 8px 30px #16857418; }
+.control-panel { background: #fff; border-top-color: #dfeae5; }
+.control-panel .btn { background: #f6faf8; color: #203831; border-color: #d8e5df; }
+.control-panel .btn:hover { background: #e8f4ed; }
+.results-root { background: radial-gradient(ellipse at 50% 0%, #dff2e7, transparent 65%), #f5f9f6; color: #203831; }
+.results-card { background: #fff; border: 1px solid #d5e6dc; border-radius: 24px; box-shadow: 0 20px 70px #204e3d0c; }
+.winner-title.blue { color: #2456a1; } .winner-title.red { color: #b04242; }
+.stat-box { background: #f4f8f6; border: 1px solid #e1eae5; }

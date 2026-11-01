@@ -36,7 +36,7 @@ export function sampleGame(): GameConfig {
   const now = new Date().toISOString();
   return {
     id: 'sample-song-xanh',
-    title: 'Sống xanh & ứng phó bão lụt (bài mẫu)',
+    title: 'Sống xanh & ứng phó bão lụt',
     teamNames: ['Đội Xanh', 'Đội Đỏ'],
     durationSeconds: 300,
     winThreshold: 5,

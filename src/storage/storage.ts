@@ -51,7 +51,12 @@ export function loadGames(): GameConfig[] {
     const games: GameConfig[] = [];
     for (const g of arr) {
       const { game } = coerceGame(g);
-      if (game) games.push(game);
+      if (game) {
+        if (game.title === 'Sống xanh & ứng phó bão lụt (bài mẫu)') {
+          game.title = 'Sống xanh & ứng phó bão lụt';
+        }
+        games.push(game);
+      }
     }
     return games;
   } catch {

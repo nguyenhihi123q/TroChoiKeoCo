@@ -25,7 +25,8 @@ export function PreMatch({ config, onStart, onBack }: Props) {
   return (
     <div className="prematch">
       <div className="rules-box">
-        <h1>{config.title}</h1>
+        <h1>Kéo co kiến thức</h1>
+        <p className="match-subtitle">{config.title}</p>
         <div className="rules-teams">
           <span style={{ color: '#93c5fd' }}>🔵 {config.teamNames[0]}</span>
           <span className="vs">⚔</span>
