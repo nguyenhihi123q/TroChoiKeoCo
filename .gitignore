@@ -32,3 +32,4 @@ coverage
 
 # Ảnh chụp màn hình tham khảo (không thuộc mã nguồn ứng dụng)
 giaodientrochoikeoco/
+.env*
